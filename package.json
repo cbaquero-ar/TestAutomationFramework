@@ -1,7 +1,7 @@
 {
-  "name": "angularjs-mini-blog",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/juanasas/angular-mini-blog",
+  "name": "test-automation-poc",
+  "description": "A starter project for AngularJS and Protractor testing",
+  "repository": "https://github.com/cbaquero-ar/test-automation-poc",
   "devDependencies": {
     "express": "~3.2.6",
     "underscore": "*"
