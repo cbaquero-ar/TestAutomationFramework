@@ -3,7 +3,19 @@
   "description": "A starter project for AngularJS and Protractor testing",
   "repository": "https://github.com/cbaquero-ar/test-automation-poc",
   "devDependencies": {
+    "@types/node": "^6.0.0",
+    "jasmine": "^2.5.3",
+    "typescript": "^2.5.3",
+    "@types/jasmine": "^2.8.6",
+    "@types/jasminewd2": "^2.0.3",
+    "protractor": "~5.1.2",
     "express": "~3.2.6",
     "underscore": "*"
+  },
+  "scripts": {
+    "pretest": "npm install",
+    "pretest-e2e": "npm run tsc",
+    "tsc": "tsc -p ./test/tsconfig.json",
+    "test-e2e": "protractor ./test/protractor.conf.ts"
   }
 }
