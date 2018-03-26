@@ -49,23 +49,22 @@ jobs:
             - node_modules          
       - run:
           name: Run WebDriver server
-          command: webdriver-manager update      
+          command: sudo webdriver-manager update      
       - run:
           name: Run WebDriver server
-          command: webdriver-manager start
+          command: sudo webdriver-manager start
   
   test:
     docker:
       - image: circleci/node:6.13
     steps:    
       - checkout      
-      
       - run:
           name: Install npm
-          command: npm install
+          command: sudo npm install
       - run:
           name: Test
-          command: protractor ./test-e2e/conf.js
+          command: sudo protractor ./test-e2e/conf.js
           
           
 workflows:
