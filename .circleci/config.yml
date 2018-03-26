@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/test-automation-poc    
     docker:
       # specify the version you desire here
-      - image: circleci/openjdk:8-jdk-node-browsers
+      - image: circleci/openjdk:8-jdk-node:6.13-browsers
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
