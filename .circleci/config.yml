@@ -25,16 +25,17 @@ jobs:
           - v1-dependencies-
       - run:
           name: Install npm
-          command: npm install
-      - run:
-          name: Deploy app
-          command: node web-server.js
+          command: npm install      
 
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules   
 
+      - run:
+          name: Deploy app
+          command: node web-server.js
+          
   # load webdriver:
   #   docker:
   #     - image: circleci/node:6.13
