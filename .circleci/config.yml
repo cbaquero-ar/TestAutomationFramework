@@ -17,7 +17,6 @@ jobs:
 
     steps:
       - checkout
-
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -31,7 +30,8 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
-deployment:
+
+  deployment:
     working_directory: ~/test-automation-poc    
     docker:
       # specify the version you desire here
@@ -44,7 +44,7 @@ deployment:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
       - run:
-          name: Build
+          name: Deploy app
           command: node web-server.js
           
   # load webdriver:
