@@ -36,8 +36,7 @@ jobs:
           command: sudo npm install -g protractor
       - run:
           name: Build
-          command: node web-server.js
-          background: true
+          command: node web-server.js &
           
   test:
     docker:
@@ -53,7 +52,7 @@ jobs:
           command: sudo webdriver-manager update 
       - run:
           name: Run WebDriver server
-          command: sudo webdriver-manager start
+          command: sudo webdriver-manager start &
           background: true    
       - run:
           name: Install npm
