@@ -36,24 +36,30 @@ jobs:
           name: Deploy app
           command: node web-server.js
           
-  # load webdriver:
-  #   docker:
-  #     - image: circleci/node:6.13
-  #   steps:    
-  #     - checkout
-  #     - run:
-  #         name: Install Protractor as Global
-  #         command: sudo npm install -g protractor
-  #     - save_cache:
-  #         key: dependency-cache-{{ checksum "package.json" }}
-  #         paths:
-  #           - node_modules          
-  #     - run:
-  #         name: Run WebDriver server
-  #         command: sudo webdriver-manager update      
-  #     - run:
-  #         name: Run WebDriver server
-  #         command: sudo webdriver-manager start
+  load-webdriver:
+    docker:
+      - image: circleci/node:6.13
+    steps:    
+      - checkout
+      - run:
+          name: Install Protractor as Global
+          command: sudo npm install -g protractor
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules          
+      - run:
+          name: Run WebDriver server
+          command: sudo webdriver-manager update      
+
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules  
+
+      - run:
+          name: Run WebDriver server
+          command: sudo webdriver-manager start
   
   # test:
   #   docker:
@@ -73,4 +79,5 @@ workflows:
   build_and_test:
     jobs:
       - build
+      - load-webdriver
       #- test
