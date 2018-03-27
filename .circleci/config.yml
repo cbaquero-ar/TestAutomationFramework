@@ -23,7 +23,7 @@ jobs:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          - v1-dependencies-      
       - run:
           name: Install npm
           command: npm install
@@ -32,33 +32,29 @@ jobs:
           paths:
             - node_modules
       - run:
-          name: Build
-          command: node web-server.js
-          
-  load webdriver:
-    docker:
-      - image: circleci/node:6.13
-    steps:    
-      - checkout
-      - run:
           name: Install Protractor as Global
           command: sudo npm install -g protractor
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules          
+      - run:
+          name: Build
+          command: node web-server.js
+          background: true
+          
+  test:
+    docker:
+      - image: circleci/openjdk:8-jdk-node:6.13-browsers
+    steps:
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-      
       - run:
           name: Run WebDriver server
-          command: sudo webdriver-manager update      
+          command: sudo webdriver-manager update 
       - run:
           name: Run WebDriver server
           command: sudo webdriver-manager start
-  
-  test:
-    docker:
-      - image: circleci/node:6.13
-    steps:    
-      - checkout      
+          background: true    
       - run:
           name: Install npm
           command: sudo npm install
@@ -72,5 +68,5 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - load webdriver
-      - test
+      #- load webdriver
+      #- test
