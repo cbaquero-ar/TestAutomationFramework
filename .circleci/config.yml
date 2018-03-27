@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/test-automation-poc    
     docker:
       # specify the version you desire here
-      - image: circleci/openjdk:8-jdk-node:6.13-browsers
+      - image: circleci/node:6.13-browsers
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -31,6 +31,18 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
+deploy:
+    working_directory: ~/test-automation-poc    
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:6.13-browsers
+    steps:
+    # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
       - run:
           name: Build
           command: node web-server.js
