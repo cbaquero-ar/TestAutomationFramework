@@ -39,6 +39,7 @@ jobs:
           command: node web-server.js &
           
   test:
+    working_directory: ~/test-automation-poc   
     docker:
       - image: circleci/openjdk:8-jdk-node:6.13-browsers
     steps:      
@@ -60,5 +61,4 @@ workflows:
   build_and_test:
     jobs:
       - build
-      #- load webdriver
-      #- test
+      - test
