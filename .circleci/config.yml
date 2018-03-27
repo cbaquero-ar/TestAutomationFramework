@@ -41,12 +41,7 @@ jobs:
   test:
     docker:
       - image: circleci/openjdk:8-jdk-node:6.13-browsers
-    steps:
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-      
+    steps:      
       - run:
           name: Run WebDriver server
           command: sudo webdriver-manager update 
@@ -59,7 +54,6 @@ jobs:
       - run:
           name: Test
           command: sudo protractor ./test-e2e/conf.js
-          
           
 workflows:
   version: 1
