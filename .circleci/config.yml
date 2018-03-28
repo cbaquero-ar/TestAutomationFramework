@@ -8,6 +8,9 @@ jobs:
       - run: 
           name: Install Sauce
           command: sudo npm install -g saucelabs
+        - run: 
+          name: Install Project Code
+          command: sudo npm install
       - run: 
           name: sauce testing
           command: sudo npm run-script sauce
