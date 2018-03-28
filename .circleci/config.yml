@@ -1,7 +1,6 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/test-automation-poc
     docker:
       - image: circleci/node:6.13-browsers
     steps:
