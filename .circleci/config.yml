@@ -5,9 +5,18 @@ jobs:
       - image: circleci/python:jessie-node-browsers
     steps:
       - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm
+          command: npm install      
       - run: 
           name: Install Sauce
-          command: npm install saucelabs
+          command: npm install -g saucelabs
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
       - run: 
           name: sauce testing
           command: npm run-script sauce
