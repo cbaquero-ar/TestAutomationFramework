@@ -7,7 +7,7 @@ jobs:
       - checkout     
       - run: 
           name: Install Sauce
-          command: npm install -g saucelabs
+          command: npm install saucelabs
       - run: 
           name: sauce testing
           command: npm run-script sauce
