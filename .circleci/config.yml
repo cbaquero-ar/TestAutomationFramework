@@ -7,19 +7,19 @@ jobs:
       - checkout
       - run: 
           name: Install Sauce
-          command: sudo npm install -g saucelabs
+          command: npm install saucelabs
         - run: 
           name: Install Project Code
-          command: sudo npm install
+          command: npm install
       - run: 
           name: sauce testing
-          command: sudo npm run-script sauce
+          command: npm run-script sauce
           environment:
             SAUCE_USERNAME: ${SAUCE_USERNAME} # Refer to circleci.com/docs/2.0/env-vars documentation for info
             SAUCE_ACCESS_KEY: ${SAUCE_ACCESS_KEY} # about setting up environment variables for auth secrets
       - run: # Wait for app to be ready
-          command: sudo wget --retry-connrefused --no-check-certificate -T 30 http://localhost:5000
+          command: wget --retry-connrefused --no-check-certificate -T 30 http://localhost:5000
       - run: # Run selenium tests
-          command: sudo nosetests
+          command: nosetests
       - run: # wait for Sauce Connect to close the tunnel
-          command: sudo killall --wait sc
+          command: killall --wait sc
