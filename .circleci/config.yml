@@ -1,19 +1,58 @@
-dependencies:
-  post:
-    - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
-    - tar -xzf sc-latest-linux.tar.gz
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    working_directory: ~/test-automation-poc    
+    dependencies:
+    post:
+          - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
+          - tar -xzf sc-latest-linux.tar.gz
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:6.13-browsers
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4    
 
-test:
-  override:
-    - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY --readyfile ~/sauce_is_ready:
-        background: true
-    # Wait for tunnel to be ready
-    - while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
-    - node web-server.js:
-        background: true
-    # Wait for app to be ready
-    - curl --retry 10 --retry-delay 2 -v http://localhost:5000
-    # Run selenium tests
-    - nosetests
-  post:
-    - killall --wait sc  # wait for Sauce Connect to close the tunnel
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+          name: Install npm
+          command: npm install      
+
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_module
+  test:  
+    override:
+      - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY --readyfile ~/sauce_is_ready:
+          background: true
+      # Wait for tunnel to be ready
+      - while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
+      - python -m hello.hello_app:
+          background: true
+      # Wait for app to be ready
+      - wget --retry-connrefused --no-check-certificate -T 30 http://localhost:5000
+      # Run selenium tests
+      - nosetests
+    post:
+      - killall --wait sc  # wait for Sauce Connect to close the tunnel
+
+workflows:
+  version: 1
+  build_and_test:
+    jobs:
+      - build
+      - test
