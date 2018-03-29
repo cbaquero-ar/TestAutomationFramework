@@ -1,7 +1,3 @@
-machine:
-  node:
-    version:
-      6.13-browsers
 dependencies:
   post:
     - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
@@ -14,7 +10,7 @@ test:
         background: true
     # Wait for tunnel to be ready
     - while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
-    - npm start:
+    - node web-server.js:
         background: true
     - sleep 5
     - npm run test-e2e
