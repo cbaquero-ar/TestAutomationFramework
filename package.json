@@ -9,6 +9,11 @@
     "@types/jasminewd2": "^2.0.3",
     "protractor": "~5.1.2",
     "express": "~3.2.6",
-    "underscore": "*"
+    "underscore": "*",
+    "saucelabs": "*"
+  },
+  "scripts": {
+    "pretest-e2e": "npm install",
+    "test-e2e": "protractor test-e2e/conf.js"
   }
 }

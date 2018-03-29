@@ -9,7 +9,7 @@ dependencies:
 
 test:
   override:
-    - npm run test-single-run
+    - npm install
     - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY --readyfile ~/sauce_is_ready:
         background: true
     # Wait for tunnel to be ready
@@ -17,6 +17,6 @@ test:
     - npm start:
         background: true
     - sleep 5
-    - npm run protractor
+    - npm run test-e2e
   post:
     - killall --wait sc  # wait for Sauce Connect to close the tunnel
