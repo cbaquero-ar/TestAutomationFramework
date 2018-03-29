@@ -1,9 +1,11 @@
+version: 1
 dependencies:
   post:
     - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
     - tar -xzf sc-latest-linux.tar.gz
-
 test:
+  docker:
+      - image: circleci/node:6.13-browsers
   override:
     - npm install
     - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY --readyfile ~/sauce_is_ready:
