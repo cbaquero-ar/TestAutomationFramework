@@ -9,11 +9,11 @@
     "express": "~3.2.6",
     "jasmine": "^2.5.3",
     "protractor": "~5.1.2",
-    "saucelabs": "^1.4.0",
     "underscore": "*"
   },
   "scripts": {
     "pretest-e2e": "npm install",
-    "test-e2e": "protractor test-e2e/conf.js"
+    "test-local":  "protractor test-e2e/conf.js",
+    "test-sauce": "protractor test-e2e/sauce-conf.js"
   }
 }
