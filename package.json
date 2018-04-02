@@ -13,7 +13,10 @@
   },
   "scripts": {
     "pretest-e2e": "npm install",
-    "test-local":  "protractor test-e2e/conf.js",
+    "test-local": "protractor test-e2e/conf.js",
     "test-sauce": "protractor test-e2e/sauce-conf.js"
+  },
+  "dependencies": {
+    "saucelabs": "^1.4.0"
   }
 }
