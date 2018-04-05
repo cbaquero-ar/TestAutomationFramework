@@ -17,6 +17,7 @@
     "test-sauce": "protractor test-e2e/sauce-conf.js"
   },
   "dependencies": {
+    "sauce": "0.0.10",
     "saucelabs": "^1.4.0"
   }
 }
