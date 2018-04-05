@@ -3,7 +3,7 @@ var express = require("express"),
 
 // configuration _______________________________________________________________________________________
 app.configure(function(){
-    app.set('port', process.env.PORT || 3000);
+    app.set('port', process.env.PORT || 5000);
     app.use(express.errorHandler());
     app.use(express.methodOverride());
     app.use(express.bodyParser());
